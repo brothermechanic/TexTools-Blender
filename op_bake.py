@@ -22,6 +22,7 @@ modes = {
     'id_material':        ub.BakeMode('bake_vertex_color', type='EMIT',     setVColor=ub.setup_vertex_color_id_material),
     'selection':        ub.BakeMode('bake_vertex_color', type='EMIT',     color=(0, 0, 0, 1), setVColor=ub.setup_vertex_color_selection),
     'diffuse':            ub.BakeMode('',                    type='DIFFUSE'),
+    'emit':            ub.BakeMode('',                    type='EMIT'),
     # 'displacment':        ub.BakeMode('',                    type='DISPLACEMENT', use_project=True, color=(0, 0, 0, 1), engine='CYCLES'),
     'ao':                ub.BakeMode('',                    type='AO',         color=(1, 1, 1, 0), params=["bake_samples"], engine='CYCLES'),
     'ao_legacy':        ub.BakeMode('',                    type='AO',         params=["bake_samples"], engine='CYCLES'),
@@ -437,7 +438,7 @@ def assign_material(mode, obj, material_bake=None, material_empty=None):
                 material_bake.node_tree.nodes["Bevel"].samples = bpy.context.scene.texToolsSettings.bake_bevel_samples
 
     # Don't apply in diffuse mode
-    if mode != 'diffuse':
+    if mode != 'diffuse' and mode !=  'emit':
         if material_bake:
             # Override with material_bake
             if len(obj.material_slots) == 0:
